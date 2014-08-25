@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ pdb_ac }}</h2>
+<hr>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Sequence</div>
+  <div class="panel-body">
+    {% for chain, data in pdb_data.iteritems()|sort %}
+      <h4>Chain {{ chain }}</h4>
+      <canvas id="canvas_chain_{{ chain }}"
+              width="960"
+              height="400">
+      </canvas>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Yasara Scenes</div>
+  <div class="panel-body">
+    Links to yasara scenes go here.
+  </div>
+</div>
+    <script defer="defer">
+      {% for chain, data in pdb_data.iteritems()|sort %}
+        // Create random accessibility values
+        var acc = new Array();
+        for (var i = 0; i < "{{ data['sequence'] }}".length; i++) {
+          acc.push(Math.random() * (100.0 - 0.0) + 0.0);
+        }
+
+        var seq = new ProteinSequence("canvas_chain_{{ chain }}",
+                                      "{{ data['sequence'] }}",
+                                      "{{ data['secondary_structure'] }}",
+                                      acc);
+        seq.update();
+      {% endfor %}
+    </script>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

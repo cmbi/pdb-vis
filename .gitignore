@@ -49,7 +49,7 @@ Session.vim
 celerybeat-schedule
 
 # bower
-xssp_rest/frontend/static/libs
+pdb_vis/frontend/static/libs/
 
 # vagrant
 .vagrant/
