@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.2.0",
-    "tinycolor": "~1.0.0"
+    "tinycolor": "~1.0.0",
+    "proseqjs": "~0.0.1"
   }
 }
