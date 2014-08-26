@@ -1,4 +1,5 @@
 import logging
+from logging.handlers import SMTPHandler
 
 from flask import Flask
 
@@ -26,6 +27,29 @@ def create_app(settings=None):
     # app.logger is accessed here so Flask tries to create it
     app.logger_name = "nowhere"
     app.logger
+
+    # Configure email logging.  It is somewhat dubious to get _log from the
+    # root package, but I can't see a better way. Having the email handler
+    # configured at the root means all child loggers inherit it.
+    from pdb_vis import _log as root_logger
+    if not app.debug:
+        mail_handler = SMTPHandler((app.config["MAIL_SERVER"],
+                                    app.config["MAIL_SMTP_PORT"]),
+                                   app.config["MAIL_FROM"],
+                                   app.config["MAIL_TO"],
+                                   "pdb-vis failed")
+        mail_handler.setLevel(logging.ERROR)
+        root_logger.addHandler(mail_handler)
+        mail_handler.setFormatter(
+            logging.Formatter("Message type: %(levelname)s\n" +
+                              "Location: %(pathname)s:%(lineno)d\n" +
+                              "Module: %(module)s\n" +
+                              "Function: %(funcName)s\n" +
+                              "Time: %(asctime)s\n" +
+                              "Message:\n" +
+                              "%(message)s"))
+    else:
+        root_logger.setLevel(logging.DEBUG)
 
     # Use ProxyFix to correct URL's when redirecting.
     from werkzeug.contrib.fixers import ProxyFix
