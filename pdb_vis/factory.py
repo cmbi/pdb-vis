@@ -32,7 +32,7 @@ def create_app(settings=None):
     # root package, but I can't see a better way. Having the email handler
     # configured at the root means all child loggers inherit it.
     from pdb_vis import _log as root_logger
-    if not app.debug:
+    if not app.debug and not app.testing:
         mail_handler = SMTPHandler((app.config["MAIL_SERVER"],
                                     app.config["MAIL_SMTP_PORT"]),
                                    app.config["MAIL_FROM"],
