@@ -26,16 +26,10 @@
 </div>
     <script defer="defer">
       {% for chain, data in pdb_data.iteritems()|sort %}
-        // Create random accessibility values
-        var acc = new Array();
-        for (var i = 0; i < "{{ data['sequence'] }}".length; i++) {
-          acc.push(Math.random() * (100.0 - 0.0) + 0.0);
-        }
-
         var seq = new ProteinSequence("canvas_chain_{{ chain }}",
                                       "{{ data['sequence'] }}",
                                       "{{ data['secondary_structure'] }}",
-                                      acc);
+                                      {{ data['accessibility'] }});
         seq.update();
       {% endfor %}
     </script>

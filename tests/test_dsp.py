@@ -17,7 +17,8 @@ class TestDsp(object):
         cls.app = cls.flask_app.test_client()
 
     @patch('bz2.BZ2File')
-    def test_parse(self, mock_bz2file):
+    @patch('os.path.exists', return_value=True)
+    def test_parse(self, mock_exists, mock_bz2file):
         instance = mock_bz2file.return_value
         instance.__enter__.return_value.readlines.return_value = [
             "1aie",
@@ -54,7 +55,8 @@ class TestDsp(object):
             'AAAAAAAAAAAAAAAAAAAAAAAAAAAAA A')
 
     @patch('bz2.BZ2File')
-    def test_parse_multiple_chains(self, mock_bz2file):
+    @patch('os.path.exists', return_value=True)
+    def test_parse_multiple_chains(self, mock_exists, mock_bz2file):
         with open('tests/12e8.dsp') as f:
             dsp_data = f.readlines()
 
@@ -62,7 +64,7 @@ class TestDsp(object):
         instance.__enter__.return_value.readlines.return_value = dsp_data
         result = dsp.parse('12e8')
 
-        eq_(len(result), 4)  # Only one chain
+        eq_(len(result), 4)
         for chain in 'LHMP':
             ok_(chain in result.keys())
 
@@ -80,7 +82,8 @@ class TestDsp(object):
 
     @raises(RuntimeError)
     @patch('bz2.BZ2File')
-    def test_parse_inconsistent_lengths(self, mock_bz2file):
+    @patch('os.path.exists', return_value=True)
+    def test_parse_inconsistent_lengths(self, mock_exists, mock_bz2file):
         instance = mock_bz2file.return_value
         instance.__enter__.return_value.readlines.return_value = [
             "1aie",
