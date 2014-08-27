@@ -10,10 +10,10 @@
   <div class="panel-body">
     {% for chain, data in pdb_data.iteritems()|sort %}
       <h4>Chain {{ chain }}</h4>
-      <canvas id="canvas_chain_{{ chain }}"
+      <div id="canvas_chain_{{ chain }}"
               width="960"
               height="400">
-      </canvas>
+      </div>
     {% endfor %}
   </div>
 </div>
@@ -29,7 +29,9 @@
         var seq = new ProteinSequence("canvas_chain_{{ chain }}",
                                       "{{ data['sequence'] }}",
                                       "{{ data['secondary_structure'] }}",
-                                      {{ data['accessibility'] }});
+                                      {{ data['accessibility'] }},
+                                      "{{ data['contacts'] }}",
+                                      "{{ data['solvent_accessibility'] }}");
         seq.update();
       {% endfor %}
     </script>
