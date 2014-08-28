@@ -10,9 +10,7 @@
   <div class="panel-body">
     {% for chain, data in pdb_data.iteritems()|sort %}
       <h4>Chain {{ chain }}</h4>
-      <div id="canvas_chain_{{ chain }}"
-              width="960"
-              height="400">
+      <div id="canvas_chain_{{ chain }}">
       </div>
     {% endfor %}
   </div>
