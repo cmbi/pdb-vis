@@ -24,8 +24,8 @@ def output(pdb_ac):
     dsp_data = dsp.parse(pdb_ac)
     acc_data = acc.parse(pdb_ac)
 
-    # Ensure that the parsed dsp data and acc data lengths match. This will help
-    # catch errors in whatif.
+    # Ensure that the parsed dsp data and acc data lengths match.
+    # This will help catch errors in whatif.
     if dsp_data.keys() != acc_data.keys():
         msg = "Chain mismatch between ACC and DSP data for '{}'".format(pdb_ac)
         _log.error(msg)
