@@ -43,17 +43,23 @@ class TestDashboardViews(object):
         rv = self.app.post('/', data={'pdb_id': '12e8'}, follow_redirects=True)
         eq_(rv.status_code, 200)
 
+        print rv.data
+
         assert '<h4>Chain A</h4>' in rv.data
         assert '<h4>Chain B</h4>' in rv.data
 
         ps_1 = '        var seq = new ProteinSequence("canvas_chain_A",\n' + \
                '                                      "MELK",\n' + \
                '                                      "THLT",\n' + \
-               '                                      [1.0, 2.0, 3.0, 4.0]);'
+               '                                      [1.0, 2.0, 3.0, 4.0],\n' + \
+               '                                      "** *",\n' + \
+               '                                      " A A");'
         assert ps_1 in rv.data
 
         ps_2 = '        var seq = new ProteinSequence("canvas_chain_B",\n' + \
                '                                      "MELK",\n' + \
                '                                      "HLL3",\n' + \
-               '                                      [5.0, 6.0, 7.0, 8.0]);\n'
+               '                                      [5.0, 6.0, 7.0, 8.0],\n' + \
+               '                                      "* * ",\n' + \
+               '                                      "AAAA");'
         assert ps_2 in rv.data
