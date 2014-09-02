@@ -24,19 +24,21 @@ class TestAcc(object):
 
         instance = mock_bz2file.return_value
         instance.__enter__.return_value.read.return_value = acc_data
-        result = acc.parse('17gs')
+        result = acc.parse('17gs.acc.bz2')
 
-        eq_(len(result), 2)  # Only one chain
+        eq_(len(result), 2)
         for chain in 'AB':
             ok_(chain in result.keys())
 
         eq_(len(result['A']), 210)
         eq_(len(result['B']), 208)
+        mock_exists.assert_called_with('17gs.acc.bz2')
 
     @raises(ValueError)
     @patch('os.path.exists', return_value=False)
     def test_parse_file_not_found(self, mock_exists):
-        acc.parse('17gs')
+        acc.parse('17gs.acc.bz2')
+        mock_exists.assert_called_with('17gs.acc.bz2')
 
     @raises(Exception)
     @patch('bz2.BZ2File')
@@ -44,4 +46,5 @@ class TestAcc(object):
     def test_parse_regex_fail(self, mock_exists, mock_bz2file):
         instance = mock_bz2file.return_value
         instance.__enter__.return_value.read.return_value = ""
-        acc.parse('17gs')
+        acc.parse('17gs.acc.bz2')
+        mock_exists.assert_called_with('17gs.acc.bz2')

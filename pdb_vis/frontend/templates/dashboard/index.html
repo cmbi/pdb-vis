@@ -8,14 +8,19 @@
 
 <form method="post" action="{{ url_for('dashboard.index') }}" role="form">
   {{ form.hidden_tag() }}
-
-  <div class="input-group">
-    {{ form.pdb_id(class_='form-control',
-                   placeholder='Enter a PDB Accession Code') }}
-
-    <span class="input-group-btn">
-      <button class="btn btn-success" type="submit">Submit</button>
-    </span>
+  <div class="row">
+    <div class="col-xs-2">
+      {{ form.type_(class_='form-control') }}
+    </div>
+    <div class="col-xs-10">
+      <div class="input-group">
+        {{ form.pdb_id(class_='form-control',
+                       placeholder='Enter a PDB Accession Code') }}
+        <span class="input-group-btn">
+          <button class="btn btn-success" type="submit">Submit</button>
+        </span>
+      </div>
+    </div>
   </div>
 </form>
 

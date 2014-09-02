@@ -19,7 +19,15 @@
 <div class="panel panel-default">
   <div class="panel-heading">Yasara Scenes</div>
   <div class="panel-body">
-    Links to yasara scenes go here.
+  {% if scenes %}
+    <ul>
+    {% for scene in scenes %}
+      <li>{{ scene }}</li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    There are no yasara scenes for {{ pdb_ac }}.
+  {% endif %}
   </div>
 </div>
     <script defer="defer">

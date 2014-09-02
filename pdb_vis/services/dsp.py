@@ -6,10 +6,8 @@ import os
 _log = logging.getLogger(__name__)
 
 
-def parse(pdb_ac):
-    DSP_ROOT = '/mnt/cmbi4/wi-lists/dsp/'
-    dsp_path = DSP_ROOT + '{}/{}.dsp.bz2'.format(pdb_ac, pdb_ac)
-    _log.info("Parsing dsp for file'{}'".format(pdb_ac))
+def parse(dsp_path):
+    _log.info("Parsing '{}'".format(dsp_path))
 
     if not os.path.exists(dsp_path):
         raise ValueError('File not found: {}'.format(dsp_path))

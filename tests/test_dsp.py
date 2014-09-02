@@ -30,7 +30,7 @@ class TestDsp(object):
             "   1 -   31  AAAAAAAAAAAAAAAAAAAAAAAAAAAAA A",
             "*END"]
 
-        result = dsp.parse('1al3')
+        result = dsp.parse('1al3.dsp')
 
         eq_(len(result), 1)  # Only one chain
         ok_('A' in result.keys())  # Chain is 'A'
@@ -62,7 +62,7 @@ class TestDsp(object):
 
         instance = mock_bz2file.return_value
         instance.__enter__.return_value.readlines.return_value = dsp_data
-        result = dsp.parse('12e8')
+        result = dsp.parse('12e8.dsp')
 
         eq_(len(result), 4)
         for chain in 'LHMP':
@@ -95,7 +95,7 @@ class TestDsp(object):
             "   1 -   31  AAAAAAAAAAAAAAAAAAAAAAAAAAAAA A",
             "*END"]
 
-        dsp.parse('1al3')
+        dsp.parse('1al3.dsp')
 
     @raises(ValueError)
     @patch('os.path.exists', return_value=False)

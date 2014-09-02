@@ -14,7 +14,14 @@ class TestDashboardViews(object):
     def setup_class(cls):
         cls.flask_app = create_app({'TESTING': True,
                                     'SECRET_KEY': 'testing',
-                                    'WTF_CSRF_ENABLED': False})
+                                    'WTF_CSRF_ENABLED': False,
+                                    'DSP_ROOT_PDB': '/dsp-pdb',
+                                    'ACC_ROOT_PDB': '/acc-pdb',
+                                    'DSP_ROOT_PDB_REDO': '/dsp-pdb-redo',
+                                    'ACC_ROOT_PDB_REDO': '/acc-pdb-redo',
+                                    'SCE_ROOT_PDB': '/sce-pdb',
+                                    'SCE_ROOT_PDB_REDO': '/sce-pdb-redo',
+                                    'SCE_TYPES': {'ss2': 'sym-contacts'}})
         cls.app = cls.flask_app.test_client()
 
     def test_index_get(self):
@@ -40,10 +47,9 @@ class TestDashboardViews(object):
                   'solvent_accessible': 'AAAA'},
         }
 
-        rv = self.app.post('/', data={'pdb_id': '12e8'}, follow_redirects=True)
+        rv = self.app.post('/', data={'type_': 'pdb',
+                                      'pdb_id': '12e8'}, follow_redirects=True)
         eq_(rv.status_code, 200)
-
-        print rv.data
 
         assert '<h4>Chain A</h4>' in rv.data
         assert '<h4>Chain B</h4>' in rv.data
@@ -63,3 +69,33 @@ class TestDashboardViews(object):
                '                                      "* * ",\n' + \
                '                                      "AAAA");'
         assert ps_2 in rv.data
+        mock_acc_parse.assert_called_with("/acc-pdb/12e8/12e8.acc.bz2")
+        mock_dsp_parse.assert_called_with("/dsp-pdb/12e8/12e8.dsp.bz2")
+
+    @patch('pdb_vis.services.dsp.parse')
+    @patch('pdb_vis.services.acc.parse')
+    def test_index_post_redo(self, mock_acc_parse, mock_dsp_parse):
+        mock_acc_parse.return_value = {
+            'A': [1.0, 2.0, 3.0, 4.0],
+            'B': [5.0, 6.0, 7.0, 8.0]
+        }
+        mock_dsp_parse.return_value = {
+            'A': {'sequence': 'MELK',
+                  'secondary_structure': 'THLT',
+                  'contacts': '** *',
+                  'solvent_accessible': ' A A'},
+            'B': {'sequence': 'MELK',
+                  'secondary_structure': 'HLL3',
+                  'contacts': '* * ',
+                  'solvent_accessible': 'AAAA'},
+        }
+
+        rv = self.app.post('/', data={'type_': 'pdb_redo',
+                                      'pdb_id': '12e8'}, follow_redirects=True)
+        eq_(rv.status_code, 200)
+
+        assert '<h4>Chain A</h4>' in rv.data
+        assert '<h4>Chain B</h4>' in rv.data
+
+        mock_acc_parse.assert_called_with("/acc-pdb-redo/12e8/12e8.acc.bz2")
+        mock_dsp_parse.assert_called_with("/dsp-pdb-redo/12e8/12e8.dsp.bz2")

@@ -9,10 +9,8 @@ _log = logging.getLogger(__name__)
 RE_ACC = re.compile(r'[0-9 A-Z\(\)]{16}([A-Z])[A-Z ]{7}[ ]+([0-9\.]+)', re.M)
 
 
-def parse(pdb_ac):
-    DSP_ROOT = '/mnt/cmbi4/wi-lists/acc/'
-    acc_path = DSP_ROOT + '{}/{}.acc.bz2'.format(pdb_ac, pdb_ac)
-    _log.info("Parsing acc for file '{}'".format(pdb_ac))
+def parse(acc_path):
+    _log.info("Parsing acc file '{}'".format(acc_path))
 
     if not os.path.exists(acc_path):
         raise ValueError('File not found: {}'.format(acc_path))
