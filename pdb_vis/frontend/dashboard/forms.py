@@ -11,5 +11,5 @@ RE_PDB_ID = re.compile(r"^[0-9a-zA-Z]{4}$")
 class PdbForm(Form):
     type_ = SelectField(u'Method',
                         choices=[('pdb', 'PDB'),
-                                 ('pdb_redo', 'PDB Redo')])
+                                 ('pdb_redo', 'PDB_REDO')])
     pdb_id = TextField(u'PDB id', [Regexp(regex=RE_PDB_ID)])
