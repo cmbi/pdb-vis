@@ -30,15 +30,15 @@
   Many tools exist to calculate physicochemical properties of protein
   structures. <strong>pdb-vis</strong> brings several of those tools together and
   provides convenient visualisations of protein structure properties at the
-  residue level.
+  residue level, both for PDB and for fully optimised PDB_REDO entries.
 </p>
 <p>
 For each chain the following properties are calculated and mapped onto the
 sequence:
 <ul>
   <li>
-    DSSP secondary structure converted to 6 states (&beta;-strand,
-    &alpha;-helix, 3<sub>10</sub>-helix, &pi;-helix, turn, and loop);
+    DSSP secondary structure converted to 4 states (&beta;-strand,
+    helix, turn, and loop);
   </li>
   <li>
     Residue molecular accessible surface area (&#8491;<sup>2</sup>);
@@ -46,7 +46,7 @@ sequence:
   <li>
     Whether the residue is clearly solvent accessible (indicated by
     <code>^</code>).  A residue is defined as clearly exposed if it is more
-    exposed than 10 &#8491; <sup>2</sup>, or more exposed than a third of its
+    exposed than 10 &#8491;<sup>2</sup>, or more exposed than a third of its
     accessibility in the unfolded state;
   </li>
   <li>
