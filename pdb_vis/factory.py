@@ -32,6 +32,7 @@ def create_app(settings=None):
     # root package, but I can't see a better way. Having the email handler
     # configured at the root means all child loggers inherit it.
     from pdb_vis import _log as root_logger
+
     if not app.debug and not app.testing:  # pragma: no cover
         mail_handler = SMTPHandler((app.config["MAIL_SERVER"],
                                     app.config["MAIL_SMTP_PORT"]),
@@ -48,6 +49,15 @@ def create_app(settings=None):
                               "Time: %(asctime)s\n" +
                               "Message:\n" +
                               "%(message)s"))
+    elif app.debug and not app.testing:
+        # Only log to the console during development and production, but not
+        # during testing.
+        ch = logging.StreamHandler()
+        formatter = logging.Formatter(
+            '%(asctime)s - %(levelname)s - %(message)s')
+        ch.setFormatter(formatter)
+        root_logger.addHandler(ch)
+        root_logger.setLevel(logging.DEBUG)
     else:
         root_logger.setLevel(logging.DEBUG)
 
