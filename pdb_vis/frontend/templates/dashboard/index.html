@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% from "form_macros.html" import render_form_errors %}
+
+{{ render_form_errors(form) }}
+
+<form method="post" action="{{ url_for('dashboard.index') }}" role="form">
+  {{ form.hidden_tag() }}
+  <div class="row">
+    <div class="col-xs-2">
+      {{ form.type_(class_='form-control') }}
+    </div>
+    <div class="col-xs-10">
+      <div class="input-group">
+        {{ form.pdb_id(class_='form-control',
+                       placeholder='Enter a PDB Accession Code') }}
+        <span class="input-group-btn">
+          <button class="btn btn-success" type="submit">Submit</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</form>
+
+<h2>Visualisation</h2>
+<hr>
+<p>
+  Many tools exist to calculate physicochemical properties of protein
+  structures. <strong>pdb-vis</strong> brings several of those tools together and
+  provides convenient visualisations of protein structure properties at the
+  residue level, both for PDB and for fully optimised PDB_REDO entries.
+</p>
+<p>
+For each chain the following properties are calculated and mapped onto the
+sequence:
+<ul>
+  <li>
+    DSSP secondary structure converted to 4 states (&beta;-strand,
+    helix, turn, and loop);
+  </li>
+  <li>
+    Residue molecular accessible surface area (&#8491;<sup>2</sup>);
+  </li>
+  <li>
+    Whether the residue is clearly solvent accessible (indicated by
+    <code>^</code>).  A residue is defined as clearly exposed if it is more
+    exposed than 10 &#8491;<sup>2</sup>, or more exposed than a third of its
+    accessibility in the unfolded state;
+  </li>
+  <li>
+    Whether the residue contacts symmetry-related residues (indicated by
+    <code>-</code>).
+  </li>
+</ul>
+</p>
+<p>
+  The number of symmetry contacts is visualized for each residue in a YASARA
+  scene. Download the freely available
+  <a href="http://www.yasara.org">YASARA View</a> to inspect the scene.
+</p>
+
+<h2>References</h2>
+<hr>
+
+<ul>
+  <li>
+    Joosten, R. P., te Beek, T. A., Krieger, E., Hekkelman, M. L.,
+    Hooft, R. W., Schneider, R., Sander, C. & Vriend, G. (2011). A series of
+    PDB related databases for everyday needs.
+    Nucleic Acids Res. 39, D411-D419.
+  </li>
+  <li>
+    Kabsch, W. & Sander, C. (1983) Dictionary of protein secondary structure:
+    pattern recognition of hydrogen-bonded and geometrical features.
+    Biopolymers, 22, 2577–2637.
+  </li>
+  <li>
+    Krieger, E. & Vriend, G. (2014) YASARA View - molecular graphics for all
+    devices - from smartphones to workstations. Bioinformatics,
+    doi:10.1093/bioinformatics/btu426.
+  </li>
+  <li>
+    Vriend, G. (1990) WHAT IF: a molecular modelling and drug design program.
+    J. Mol. Graph. 8, 52-56.
+  </li>
+</ul>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

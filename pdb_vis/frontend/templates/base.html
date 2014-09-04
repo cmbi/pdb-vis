@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Javascript -->
+    <script src="{{ url_for('static',
+                            filename='libs/jquery/dist/jquery.min.js') }}">
+    </script>
+    <script src="{{ url_for('static',
+                            filename='libs/bootstrap/dist/js/bootstrap.min.js') }}">
+    </script>
+
+    <script src="{{ url_for('static',
+                            filename='libs/tinycolor/tinycolor.js') }}">
+    </script>
+
+    <script src="{{ url_for('static',
+                            filename='libs/kineticjs/kinetic.js') }}">
+    </script>
+
+    <script src="{{ url_for('static', filename='libs/proseqjs/proseq.js') }}"
+            charset="utf-8">
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+                           filename='libs/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+                           filename='css/site.css') }}">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <!-- Navbar header -->
+        <div class="navbar-header">
+          <a class="navbar-brand logo" href="{{ url_for('dashboard.index') }}">
+            <p>pdb-vis</p>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Flashed messages -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="container">
+          <div class="alert alert-dismissable alert-success">
+            <button type="button" class="close" data-dismiss="alert"
+                    aria-hidden="true">&times;</button>
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    {% block js %}
+    {% endblock %}
+  </body>
+</html>

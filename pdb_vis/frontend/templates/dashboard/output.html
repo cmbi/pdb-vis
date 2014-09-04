@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ pdb_ac }}</h2>
+<hr>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Sequence</div>
+  <div class="panel-body">
+    {% for chain, data in pdb_data.iteritems()|sort %}
+      <h4>Chain {{ chain }}</h4>
+      <div id="canvas_chain_{{ chain }}">
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Yasara Scenes</div>
+  <div class="panel-body">
+  {% if scenes %}
+    <ul>
+    {% for scene in scenes %}
+      <li>{{ scene }}</li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    There are no yasara scenes for {{ pdb_ac }}.
+  {% endif %}
+  </div>
+</div>
+    <script defer="defer">
+      {% for chain, data in pdb_data.iteritems()|sort %}
+        var seq = new ProteinSequence("canvas_chain_{{ chain }}",
+                                      "{{ data['sequence'] }}",
+                                      "{{ data['secondary_structure'] }}",
+                                      {{ data['accessibility'] }},
+                                      "{{ data['contacts'] }}",
+                                      "{{ data['solvent_accessible'] }}");
+        seq.update();
+      {% endfor %}
+    </script>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
