@@ -7,7 +7,7 @@ _log = logging.getLogger(__name__)
 
 
 def find(sce_root, pdb_ac, types):
-    # Build a list of candidate paths to yasara scene files for the given PDB
+    # Build a list of candidate paths to YASARA scene files for the given PDB
     # accession code.
     scene_files = [
         os.path.join(sce_root, k, pdb_ac, "{}_{}.sce".format(pdb_ac, v))
