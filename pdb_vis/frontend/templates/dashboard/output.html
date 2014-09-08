@@ -22,7 +22,12 @@
   {% if scenes %}
     <ul>
     {% for scene in scenes %}
-      <li>{{ scene }}</li>
+    <li>
+      <a href={{ url_for("dashboard.scene", pdb_type=pdb_type, pdb_ac=pdb_ac,
+                         sce_file=scene) }}>
+        {{ scene }}
+      </a>
+    </li>
     {% endfor %}
     </ul>
   {% else %}
