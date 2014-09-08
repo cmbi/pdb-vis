@@ -23,7 +23,8 @@ def get_scene_dir(sce_root, pdb_ac, sce_file, types):
     scene_dir = None
 
     if not re.match(RE_SCENE, sce_file):
-        raise ValueError("Invalid YASARA scene filename: '{}'".format(sce_file))
+        raise ValueError("Invalid YASARA scene filename: '{}'".format(
+            sce_file))
 
     for k, v in types.iteritems():
         # Remove pdb ac and extension from filename
