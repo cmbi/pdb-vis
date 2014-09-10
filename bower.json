@@ -1,8 +1,9 @@
 {
   "name": "pdb-vis",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
-    "Jon Black <Jon.Black@radboudumc.nl>"
+    "Jon Black <Jon.Black@radboudumc.nl>",
+    "Wouter Touw <Wouter.Touw@radboudumc.nl>"
   ],
   "license": "Unknown",
   "private": true,
