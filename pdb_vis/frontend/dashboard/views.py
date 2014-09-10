@@ -1,7 +1,8 @@
 import logging
 import os
 
-from flask import Blueprint, current_app, redirect, render_template, url_for
+from flask import (Blueprint, current_app, redirect, render_template,
+                   send_from_directory, url_for)
 
 from pdb_vis.frontend.dashboard.forms import PdbForm
 from pdb_vis.services import acc, dsp, scenes
@@ -33,11 +34,13 @@ def output(pdb_type, pdb_ac):
         acc_root = current_app.config['ACC_ROOT_PDB_REDO']
         sce_root = current_app.config['SCE_ROOT_PDB_REDO']
     else:
-        raise ValueError("Invalid pdb type '{}'".format(pdb_type))
+        raise ValueError("Invalid db type '{}'".format(pdb_type))
 
     dsp_data = dsp.parse(os.path.join(dsp_root, pdb_ac, pdb_ac + ".dsp.bz2"))
     acc_data = acc.parse(os.path.join(acc_root, pdb_ac, pdb_ac + ".acc.bz2"))
     sce_files = scenes.find(sce_root, pdb_ac, current_app.config['SCE_TYPES'])
+    for s in sce_files:
+        _log.debug(s)
 
     # Ensure that the parsed dsp data and acc data lengths match.
     # This will help catch errors in whatif.
@@ -60,8 +63,27 @@ def output(pdb_type, pdb_ac):
 
     return render_template("dashboard/output.html",
                            pdb_ac=pdb_ac,
+                           pdb_type=pdb_type,
                            pdb_data=pdb_data,
                            scenes=sce_files)
+
+
+@bp.route("/<pdb_type>/<pdb_ac>/<sce_file>", methods=['GET'])
+def scene(pdb_type, pdb_ac, sce_file):
+    if pdb_type == 'pdb':
+        sce_root = current_app.config['SCE_ROOT_PDB']
+    elif pdb_type == 'pdb_redo':
+        sce_root = current_app.config['SCE_ROOT_PDB_REDO']
+    else:
+        raise ValueError("Invalid db type '{}'".format(pdb_type))
+    scene_dir = scenes.get_scene_dir(sce_root, pdb_ac, sce_file.lower(),
+                                     current_app.config['SCE_TYPES'])
+    _log.info("sending from {}".format(scene_dir))
+
+    return send_from_directory(
+        directory=scene_dir,
+        filename=sce_file,
+        as_attachment=True)
 
 
 @bp.errorhandler(Exception)  # pragma: no cover

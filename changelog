@@ -1,3 +1,8 @@
+# 1.0.1 (10-09-2014)
+
+	* Provide a download link to a YASARA scene, not only the filename (#14)
+	* Improve text a bit (#12, #13)
+
 # 1.0.0 (04-09-2014)
 
 	* Initial release

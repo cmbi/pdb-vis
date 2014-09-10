@@ -17,16 +17,21 @@
 </div>
 
 <div class="panel panel-default">
-  <div class="panel-heading">Yasara Scenes</div>
+  <div class="panel-heading">YASARA Scenes</div>
   <div class="panel-body">
   {% if scenes %}
     <ul>
     {% for scene in scenes %}
-      <li>{{ scene }}</li>
+    <li>
+      <a href={{ url_for("dashboard.scene", pdb_type=pdb_type, pdb_ac=pdb_ac,
+                         sce_file=scene) }}>
+        {{ scene }}
+      </a>
+    </li>
     {% endfor %}
     </ul>
   {% else %}
-    There are no yasara scenes for {{ pdb_ac }}.
+    There are no YASARA scenes for {{ pdb_ac }}.
   {% endif %}
   </div>
 </div>
