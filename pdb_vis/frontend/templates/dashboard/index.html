@@ -32,6 +32,7 @@
   provides convenient visualisations of protein structure properties at the
   residue level, both for PDB and for fully optimised PDB_REDO entries.
 </p>
+<h3>2D</h3>
 <p>
 For each chain the following properties are calculated and mapped onto the
 sequence:
@@ -39,17 +40,17 @@ sequence:
   <li>
     DSSP secondary structure converted to 4 states (&beta;-strand,
     helix, turn, and loop). The state will be shown when the cursor is pointed
-    at the color bars;
+    at the color bars.
   </li>
   <li>
     Residue molecular accessible surface area (&#8491;<sup>2</sup>). The
-    cursor tooltip will show the exact value;
+    cursor tooltip will show the exact value.
   </li>
   <li>
     Whether the residue is clearly solvent accessible (indicated by
     <code>^</code>).  A residue is defined as clearly exposed if it is more
     exposed than 10 &#8491;<sup>2</sup>, or more exposed than a third of its
-    accessibility in the unfolded state;
+    accessibility in the unfolded state.
   </li>
   <li>
     Whether the residue contacts symmetry-related residues (indicated by
@@ -57,10 +58,19 @@ sequence:
   </li>
 </ul>
 </p>
+<h3>3D</h3>
+YASARA scenes show
 <p>
-  The number of symmetry contacts is visualized for each residue in a YASARA
-  scene. Download the freely available
-  <a href="http://www.yasara.org">YASARA View</a> to inspect the scene.
+<ul>
+  <li>
+    The number of crystal contacts for residues in X-ray structures.
+  </li>
+  <li>
+    Metal centres and ligands. The rest of the macromolecule is hidden.
+  </li>
+</ul>
+Download the freely available <a href="http://www.yasara.org">YASARA View</a>
+to inspect scenes.
 </p>
 
 <h2>References</h2>

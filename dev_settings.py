@@ -19,4 +19,4 @@ DSP_ROOT_PDB = '/mnt/cmbi4/wi-lists/pdb/dsp/'
 DSP_ROOT_PDB_REDO = '/mnt/cmbi4/wi-lists/redo/dsp/'
 SCE_ROOT_PDB = '/mnt/cmbi4/wi-lists/pdb/scenes/'
 SCE_ROOT_PDB_REDO = '/mnt/cmbi4/wi-lists/redo/scenes/'
-SCE_TYPES = {'ss2': 'sym-contacts'}
+SCE_TYPES = {'ss2': 'sym-contacts', 'iod': 'ion-sites'}
