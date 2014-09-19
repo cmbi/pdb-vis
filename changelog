@@ -1,3 +1,8 @@
+# 1.1.0 (19-09-2014)
+
+	* Adapt parser and visualization to WHAT IF (#15, #16)
+	* Update to proseqjs-0.0.4
+
 # 1.0.2 (11-09-2014)
 
 	* Improve info text for ion site YASARA scenes
