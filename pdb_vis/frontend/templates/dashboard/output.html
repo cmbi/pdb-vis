@@ -40,7 +40,7 @@
         var seq = new ProteinSequence("canvas_chain_{{ chain }}",
                                       "{{ data['sequence'] }}",
                                       "{{ data['secondary_structure'] }}",
-                                      {{ data['accessibility'] }},
+                                      {{ data['accessibility']|safe}},
                                       "{{ data['contacts'] }}",
                                       "{{ data['solvent_accessible'] }}");
         seq.update();
