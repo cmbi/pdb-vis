@@ -78,7 +78,7 @@ def scene(pdb_type, pdb_ac, sce_file):
         raise ValueError("Invalid db type '{}'".format(pdb_type))
     scene_dir = scenes.get_scene_dir(sce_root, pdb_ac, sce_file.lower(),
                                      current_app.config['SCE_TYPES'])
-    _log.info("sending from {}".format(scene_dir))
+    _log.debug("Sending scene from {}".format(scene_dir))
 
     return send_from_directory(
         directory=scene_dir,
