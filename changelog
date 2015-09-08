@@ -1,3 +1,8 @@
+# 1.1.1 (08-09-2015)
+
+	* Update facilities paper (#19)
+	* Upgrade gevent
+
 # 1.1.0 (19-09-2014)
 
 	* Adapt parser and visualization to WHAT IF (#15, #16)
