@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: gunicorn -k gevent -b 0.0.0.0:8015 pdb_vis.application:app
+    ports:
+      - "8015:8015"
+    environment:
+      - PDB_VIS_SETTINGS=/usr/src/app/prd_settings.py
+    volumes:
+      - "/mnt/cmbi4:/mnt/cmbi4"

@@ -1,6 +1,6 @@
 # Flask
-DEBUG = True
-SECRET_KEY = 'development_key'
+DEBUG = False
+SECRET_KEY = 'jt&lktj57+t#l8-l&wvujw0t#h*j41d8-xhewsmujo!p2fhn'
 
 # Debug toolbar
 DEBUG_TB_ENABLED = DEBUG
@@ -10,7 +10,7 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 MAIL_SERVER = "smtp.umcn.nl"
 MAIL_SMTP_PORT = 25
 MAIL_FROM = "pdb-vis@cmbi.umcn.nl"
-MAIL_TO = ["Jon.Black@radboudumc.nl"]
+MAIL_TO = ["Jon.Black@radboudumc.nl", "Coos.Baakman@radboudumc.nl"]
 
 # Databank paths
 ACC_ROOT_PDB = '/mnt/cmbi4/wi-lists/pdb/acc/'
