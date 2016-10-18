@@ -6,4 +6,4 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | b
 RUN . ~/.nvm/nvm.sh ; nvm install v4.4.0 ; npm install -g bower ; bower install --allow-root
 
 WORKDIR /usr/src/app
-EXPOSE 8015
+EXPOSE 6015

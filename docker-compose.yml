@@ -5,9 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: gunicorn -k gevent -b 0.0.0.0:8015 pdb_vis.application:app
+    command: gunicorn -k gevent -b 0.0.0.0:6015 pdb_vis.application:app
     ports:
-      - "8015:8015"
+      - "6015:6015"
     environment:
       - PDB_VIS_SETTINGS=/usr/src/app/prd_settings.py
     volumes:
