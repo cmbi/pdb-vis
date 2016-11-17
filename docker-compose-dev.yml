@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+
+  frontend:
+    command: watchmedo auto-restart -d /usr/src/app -p "*.py" -D -R -- gunicorn -k gevent -b 0.0.0.0:6015 pdb_vis.application:app
+    environment:
+      - PDB_VIS_SETTINGS=/usr/src/app/dev_settings.py
+    volumes:
+      - ".:/usr/src/app"
+      - "/usr/src/app/pdb_vis/frontend/static/libs"
