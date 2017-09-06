@@ -98,3 +98,11 @@ class TestAcc(object):
         acc_data = acc.parse('tests/4eha.acc.bz2')
 
         eq_(sorted(acc_data.keys()), ['A', 'B', 'C', 'F'])
+
+    def test_chain_lengths(self):
+        acc_data = acc.parse('tests/4m61.acc.bz2')
+
+        eq_(len(acc_data['A']), 219)
+        eq_(len(acc_data['B']), 220)
+        eq_(len(acc_data['C']), 219)
+        eq_(len(acc_data['D']), 220)

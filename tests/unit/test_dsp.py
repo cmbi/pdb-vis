@@ -107,3 +107,11 @@ class TestDsp(object):
         dsp_data = dsp.parse('tests/4eha.dsp.bz2')
 
         eq_(sorted(dsp_data.keys()), ['A', 'B', 'C', 'F'])
+
+    def test_chain_lengths(self):
+        dsp_data = dsp.parse('tests/4m61.dsp.bz2')
+
+        eq_(len(dsp_data['A']['sequence']), 219)
+        eq_(len(dsp_data['B']['sequence']), 220)
+        eq_(len(dsp_data['C']['sequence']), 219)
+        eq_(len(dsp_data['D']['sequence']), 220)
