@@ -102,3 +102,16 @@ class TestDsp(object):
     def test_parse_dsp_file_not_found(self, mock_path_exists):
         dsp.parse('this-doesnt-exist')
         mock_path_exists.assert_called_with('this-doesnt-exist')
+
+    def test_parse_chains(self):
+        dsp_data = dsp.parse('tests/4eha.dsp.bz2')
+
+        eq_(sorted(dsp_data.keys()), ['A', 'B', 'C', 'F'])
+
+    def test_chain_lengths(self):
+        dsp_data = dsp.parse('tests/4m61.dsp.bz2')
+
+        eq_(len(dsp_data['A']['sequence']), 219)
+        eq_(len(dsp_data['B']['sequence']), 220)
+        eq_(len(dsp_data['C']['sequence']), 219)
+        eq_(len(dsp_data['D']['sequence']), 220)
