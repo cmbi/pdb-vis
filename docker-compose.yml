@@ -12,4 +12,4 @@ services:
     ports:
       - "6015:6015"
     volumes:
-      - "/mnt/cmbi4:/mnt/cmbi4"
+      - "/mnt/chelonium:/mnt/cmbi4"
