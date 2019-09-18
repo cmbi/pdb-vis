@@ -15,7 +15,7 @@ RE_ACC = re.compile("""
                     (?P<res_ic>[A-Z ])\)           # Insertion code PDB
                     (?P<chain>\w)                  # Chain WHAT IF
                     [ ]{5}
-                    (?P<ss>[ HSTEGB?])             # Secondary structure
+                    (?P<ss>[ HSTEGBI?])            # Secondary structure
                     [ ]+
                     (?P<acc>[0-9\.]+)              # Molecular accessibility
                     $
@@ -50,6 +50,7 @@ def parse(acc_path):
     for line in acc_lines:
         m = re.match(RE_ACC, line)
         n = re.match(RE_NAC, line)
+
         if m:
             chain = m.group("chain")
             acc_value = m.group("acc")
