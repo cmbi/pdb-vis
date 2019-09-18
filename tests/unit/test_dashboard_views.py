@@ -27,7 +27,7 @@ class TestDashboardViews(object):
     def test_index_get(self):
         rv = self.app.get('/')
         eq_(rv.status_code, 200)
-        ok_('<input class="form-control" id="pdb_id" name="pdb_id"' in rv.data)
+        ok_('<input class="form-control" id="pdb_id" name="pdb_id"' in rv.data.decode('utf8'))
 
     @patch('pdb_vis.services.dsp.parse')
     @patch('pdb_vis.services.acc.parse')
@@ -51,8 +51,9 @@ class TestDashboardViews(object):
                                       'pdb_id': '12e8'}, follow_redirects=True)
         eq_(rv.status_code, 200)
 
-        assert '<h4>Chain A</h4>' in rv.data
-        assert '<h4>Chain B</h4>' in rv.data
+        text = rv.data.decode('utf8')
+        assert '<h4>Chain A</h4>' in text
+        assert '<h4>Chain B</h4>' in text
 
         ps_1 = '        var seq = new ProteinSequence("canvas_chain_A",\n' + \
                '                                      "MELK",\n' + \
@@ -60,7 +61,7 @@ class TestDashboardViews(object):
                '                                      [1.0, 2.0, 3.0, 4.0],\n' + \
                '                                      "** *",\n' + \
                '                                      " A A");'
-        assert ps_1 in rv.data
+        assert ps_1 in text
 
         ps_2 = '        var seq = new ProteinSequence("canvas_chain_B",\n' + \
                '                                      "MELK",\n' + \
@@ -68,7 +69,7 @@ class TestDashboardViews(object):
                '                                      [5.0, 6.0, 7.0, 8.0],\n' + \
                '                                      "* * ",\n' + \
                '                                      "AAAA");'
-        assert ps_2 in rv.data
+        assert ps_2 in text
         mock_acc_parse.assert_called_with("/acc-pdb/12e8/12e8.acc.bz2")
         mock_dsp_parse.assert_called_with("/dsp-pdb/12e8/12e8.dsp.bz2")
 
@@ -94,8 +95,9 @@ class TestDashboardViews(object):
                                       'pdb_id': '12e8'}, follow_redirects=True)
         eq_(rv.status_code, 200)
 
-        assert '<h4>Chain A</h4>' in rv.data
-        assert '<h4>Chain B</h4>' in rv.data
+        text = rv.data.decode('utf8')
+        assert '<h4>Chain A</h4>' in text
+        assert '<h4>Chain B</h4>' in text
 
         mock_acc_parse.assert_called_with("/acc-pdb-redo/12e8/12e8.acc.bz2")
         mock_dsp_parse.assert_called_with("/dsp-pdb-redo/12e8/12e8.dsp.bz2")

@@ -65,10 +65,6 @@ def create_app(settings=None):
     from pdb_vis.middleware import ReverseProxied
     app.wsgi_app = ReverseProxied(app.wsgi_app)
 
-    # Initialise extensions
-    from pdb_vis import toolbar
-    toolbar.init_app(app)
-
     # Register blueprints
     from pdb_vis.frontend.dashboard.views import bp as dashboard_bp
     app.register_blueprint(dashboard_bp)

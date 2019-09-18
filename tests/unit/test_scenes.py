@@ -76,7 +76,7 @@ class TestScenes(object):
         mock_exists.side_effect = lambda a: test_data[a]
 
         expected_files = [os.path.split(k)[1]
-                          for k, v in test_data.iteritems() if v]
+                          for k, v in test_data.items() if v]
         scene_files = scenes.find('/sce_root', '1crn', {'ss2': 'sym-contacts'})
 
         assert scene_files == expected_files
@@ -90,7 +90,7 @@ class TestScenes(object):
         mock_exists.side_effect = lambda a: test_data[a]
 
         expected_files = [os.path.split(k)[1]
-                          for k, v in test_data.iteritems() if v]
+                          for k, v in test_data.items() if v]
         scene_files = scenes.find('/sce_root', '1crn', {'ss2': 'sym-contacts'})
 
         assert scene_files == expected_files

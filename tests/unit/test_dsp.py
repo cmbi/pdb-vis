@@ -16,7 +16,7 @@ class TestDsp(object):
         cls.flask_app = create_app({'TESTING': True})
         cls.app = cls.flask_app.test_client()
 
-    @patch('bz2.BZ2File')
+    @patch('bz2.open')
     @patch('os.path.exists', return_value=True)
     def test_parse(self, mock_exists, mock_bz2file):
         instance = mock_bz2file.return_value
@@ -35,7 +35,7 @@ class TestDsp(object):
         eq_(len(result), 1)  # Only one chain
         ok_('A' in result.keys())  # Chain is 'A'
 
-        for chain, data in result.iteritems():
+        for chain, data in result.items():
             _log.debug("Testing chain {}".format(chain))
             ok_('sequence' in data)
             ok_('secondary_structure' in data)
@@ -54,7 +54,7 @@ class TestDsp(object):
         eq_(result['A']['solvent_accessible'],
             'AAAAAAAAAAAAAAAAAAAAAAAAAAAAA A')
 
-    @patch('bz2.BZ2File')
+    @patch('bz2.open')
     @patch('os.path.exists', return_value=True)
     def test_parse_multiple_chains(self, mock_exists, mock_bz2file):
         with open('tests/12e8.dsp') as f:
@@ -68,7 +68,7 @@ class TestDsp(object):
         for chain in 'LHMP':
             ok_(chain in result.keys())
 
-        for chain, data in result.iteritems():
+        for chain, data in result.items():
             _log.debug("Testing chain {}".format(chain))
             ok_('sequence' in data)
             ok_('secondary_structure' in data)
@@ -81,7 +81,7 @@ class TestDsp(object):
         eq_(len(result['P']['sequence']), 221)
 
     @raises(RuntimeError)
-    @patch('bz2.BZ2File')
+    @patch('bz2.open')
     @patch('os.path.exists', return_value=True)
     def test_parse_inconsistent_lengths(self, mock_exists, mock_bz2file):
         instance = mock_bz2file.return_value

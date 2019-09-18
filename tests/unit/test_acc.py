@@ -16,7 +16,7 @@ class TestAcc(object):
         cls.flask_app = create_app({'TESTING': True})
         cls.app = cls.flask_app.test_client()
 
-    @patch('bz2.BZ2File')
+    @patch('bz2.open')
     @patch('os.path.exists', return_value=True)
     def test_parse_multiple_chains(self, mock_exists, mock_bz2file):
         with open('tests/17gs.acc') as f:
@@ -34,7 +34,7 @@ class TestAcc(object):
         eq_(len(result['B']), 208)
         mock_exists.assert_called_with('17gs.acc.bz2')
 
-    @patch('bz2.BZ2File')
+    @patch('bz2.open')
     @patch('os.path.exists', return_value=True)
     def test_parse_acc_and_reason(self, mock_exists, mock_bz2file):
         with open('tests/1evq.acc') as f:
@@ -48,7 +48,7 @@ class TestAcc(object):
         eq_(len(result['A']), 308)
         mock_exists.assert_called_with('1evq.acc.bz2')
 
-    @patch('bz2.BZ2File')
+    @patch('bz2.open')
     @patch('os.path.exists', return_value=True)
     def test_parse_multiple_chains_reason(self, mock_exists, mock_bz2file):
         """Tests that multiple chains are parsed correctly.
@@ -76,7 +76,7 @@ class TestAcc(object):
         mock_exists.assert_called_with('17gs.acc.bz2')
 
     @raises(Exception)
-    @patch('bz2.BZ2File')
+    @patch('bz2.open')
     @patch('os.path.exists', return_value=True)
     def test_parse_regex_fail(self, mock_exists, mock_bz2file):
         instance = mock_bz2file.return_value
@@ -85,7 +85,7 @@ class TestAcc(object):
         mock_exists.assert_called_with('17gs.acc.bz2')
 
     @raises(ValueError)
-    @patch('bz2.BZ2File')
+    @patch('bz2.open')
     @patch('os.path.exists', return_value=True)
     def test_parse_acc_no_float(self, mock_exists, mock_bz2file):
         acc_data = ['   54 PHE (  17 )a     H    0.0.0']

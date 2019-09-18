@@ -58,7 +58,7 @@ def output(pdb_type, pdb_ac):
 
     # Add the accessibility to the pdb data dict
     pdb_data = dsp_data
-    for chain, acc_values in acc_data.iteritems():
+    for chain, acc_values in acc_data.items():
         pdb_data[chain]['accessibility'] = acc_values
 
     return render_template("dashboard/output.html",

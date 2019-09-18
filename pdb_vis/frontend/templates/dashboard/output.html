@@ -8,7 +8,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Sequence</div>
   <div class="panel-body">
-    {% for chain, data in pdb_data.iteritems()|sort %}
+    {% for chain, data in pdb_data.items()|sort %}
       <h4>Chain {{ chain }}</h4>
       <div id="canvas_chain_{{ chain }}">
       </div>
@@ -36,7 +36,7 @@
   </div>
 </div>
     <script defer="defer">
-      {% for chain, data in pdb_data.iteritems()|sort %}
+      {% for chain, data in pdb_data.items()|sort %}
         var seq = new ProteinSequence("canvas_chain_{{ chain }}",
                                       "{{ data['sequence'] }}",
                                       "{{ data['secondary_structure'] }}",

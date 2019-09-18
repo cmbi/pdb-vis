@@ -44,7 +44,7 @@ def parse(acc_path):
         raise ValueError('File not found: {}'.format(acc_path))
 
     acc = {}
-    with bz2.BZ2File(acc_path) as f:
+    with bz2.open(acc_path, 'rt') as f:
         acc_lines = f.readlines()
 
     for line in acc_lines:

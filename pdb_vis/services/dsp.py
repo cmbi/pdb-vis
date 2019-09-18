@@ -12,7 +12,7 @@ def parse(dsp_path):
     if not os.path.exists(dsp_path):
         raise ValueError('File not found: {}'.format(dsp_path))
 
-    with bz2.BZ2File(dsp_path) as f:
+    with bz2.open(dsp_path, 'rt') as f:
         dsp_lines = f.readlines()
 
     _log.debug("DSP contains {} lines".format(len(dsp_lines)))
@@ -22,7 +22,7 @@ def parse(dsp_path):
     _log.debug("Expecting {} chains".format(num_chains))
 
     chains = {}
-    for i in xrange(1, len(dsp_lines) - 1, 6):
+    for i in range(1, len(dsp_lines) - 1, 6):
         chn = dsp_lines[i][6:7]
 
         _log.debug("Processing chain {}".format(chn))

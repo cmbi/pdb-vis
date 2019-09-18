@@ -1,7 +1,6 @@
 import logging
 import os
 import re
-from itertools import ifilter
 
 
 _log = logging.getLogger(__name__)
@@ -26,7 +25,7 @@ def get_scene_dir(sce_root, pdb_ac, sce_file, types):
         raise ValueError("Invalid YASARA scene filename: '{}'".format(
             sce_file))
 
-    for k, v in types.iteritems():
+    for k, v in types.items():
         # Remove pdb ac and extension from filename
         if v == sce_file.split(_sep)[1].split(".")[0]:
             scene_dir = os.path.join(sce_root, k, pdb_ac)
@@ -45,12 +44,12 @@ def find(sce_root, pdb_ac, types):
     # accession code.
     scene_files = [
         os.path.join(sce_root, k, pdb_ac, "{}{}{}.sce".format(pdb_ac, _sep, v))
-        for k, v in types.iteritems()]
+        for k, v in types.items()]
 
     # Remove paths that don't exist
     # It's legitimate that some scene files don't exist, so this is not
     # considered an error case.
-    scene_files[:] = list(ifilter(lambda x: os.path.exists(x), scene_files))
+    scene_files[:] = list(filter(lambda x: os.path.exists(x), scene_files))
 
     # Remove the path leaving only the filename
     scene_files = [os.path.split(f)[1] for f in scene_files]
