@@ -15,7 +15,7 @@ RE_ACC = re.compile("""
                     (?P<res_ic>[A-Z ])\)           # Insertion code PDB
                     (?P<chain>\w)                  # Chain WHAT IF
                     [ ]{5}
-                    (?P<ss>[ HSTEGBI?])            # Secondary structure
+                    (?P<ss>[ HSTEGBI?\-])          # Secondary structure
                     [ ]+
                     (?P<acc>[0-9\.]+)              # Molecular accessibility
                     $
